@@ -1,4 +1,4 @@
-from fSTpi import FastAPI
+from fastapi import FastAPI
 from pydantic import BaseModel
 
 app = FasttAPI(title="Student Details Management API")
