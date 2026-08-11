@@ -1,18 +1,33 @@
-from fastapi import FastAPI
+from fSTpi import FastAPI
+from pydantic import BaseModel
 
-app=FastAPI(title="Hemalatha")
+app = FasttAPI(title="Student Details Management API")
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+#in memory database
+students_db={
+    1:{"name":"hemalatha","age":20,"course":"Data Analyst"},
+    2:{"name":"manju","age":21,"course":"Data Science"},
+    3:{"name":"mokshitha","age":22,"course":"AI&ML"},
+}
 
-@app.get("/name")
-def read_name():
-    return {"name": "Hemalatha"}
+#Data validation model
+class Student(BaseModel):
+    name: str
+    age: int
+    course: str
 
-@app.get("/batch")
-def read_batch():
-    return {"batch": "555_B"}
-@app.get("/email")
-def read_email():
-    return {"email": "hemalatha@example.com"}
+
+==========================================
+READ (GET) - View All or Filter by Course
+==========================================
+@app.get("/students/")
+def get_students(course: str = None):
+    if course:
+        filtered = {
+            s_id: s
+            for s_id, s in students_db.items()
+            if s["course"].lower() == course.lower()
+        }
+        return filtered
+
+    return students_db
