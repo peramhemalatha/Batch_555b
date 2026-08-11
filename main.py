@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-app = FasttAPI(title="Student Details Management API")
+app = FastAPI(title="Student Details Management API")
 
 #in memory database
 students_db={
